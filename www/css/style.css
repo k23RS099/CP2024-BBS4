@@ -107,7 +107,7 @@ textarea.form-control {
     color: white;
 }
 
-.btn-primary, .btn-secondary, .btn-danger {
+.btn-primary, .btn-secondary, .btn-danger, .btm-change{
     border: none;
     padding: 8px 16px;
     border-radius: 4px;
@@ -147,6 +147,29 @@ textarea.form-control {
 
 .btn-danger:hover {
     background-color: #c82333;
+}
+
+.btn-change {
+    background-color: #f6dd00;
+    color: white;
+}
+
+.btn-change:hover {
+    background-color: #cccccc;
+}
+
+/*色選択ボタン*/
+.btn-sea {
+    background-color: #b1e7f5;
+    
+}
+
+.btn-forest {
+    background-color: #8ad965;
+}
+
+.btn-night {
+    background-color: #3f538d;
 }
 
 /* 投稿一覧 */
