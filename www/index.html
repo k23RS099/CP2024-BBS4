@@ -615,6 +615,24 @@ window.addEventListener('unload', function() {
                 <button onclick="closeModal('deleteModal')" class="btn-cancel">キャンセル</button>
             </div>
         </div>
+
+    <!-- 色変更モーダルウィンドウ -->
+    <div id="colorModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>色の変更</h3>
+                <button class="modal-close" onclick="closeModal('colorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>この投稿を削除してもよろしいですか？</p>
+                <p class="text-danger">この操作は取り消せません。</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="handleDelete()" class="btn-danger">変更</button>
+                <button onclick="closeModal('colorModal')" class="btn-cancel">キャンセル</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
