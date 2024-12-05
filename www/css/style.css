@@ -159,17 +159,25 @@ textarea.form-control {
 }
 
 /*色選択ボタン*/
+.btn-sea, .btn-forest, .btn-night {
+    border: none;
+    padding: 20px 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
 .btn-sea {
-    background-color: #b1e7f5;
-    
+    color: #b1e7f5;
 }
 
 .btn-forest {
-    background-color: #8ad965;
+    color: #8ad965;
 }
 
 .btn-night {
-    background-color: #3f538d;
+    color: #3f538d;
 }
 
 /* 投稿一覧 */
