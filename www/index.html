@@ -376,6 +376,12 @@ function deletePost(postId) {
     showModal('deleteModal');
 }
 
+//色の変更
+function colorPost(postId) {
+    currentEditId = postId;
+    showModal('colorModal');
+}
+
 // 更新時のアニメーション
 function animateUpdate(postId) {
     const post = $(`#post-${postId}`);
@@ -626,10 +632,10 @@ window.addEventListener('unload', function() {
             </div>
             <div class="modal-body">
                 <p>この投稿を削除してもよろしいですか？</p>
-                <p class="text-danger">この操作は取り消せません。</p>
+                <!--<p class="text-danger">この操作は取り消せません。</p>-->
             </div>
             <div class="modal-footer">
-                <button onclick="handleDelete()" class="btn-danger">変更</button>
+                <button onclick="handleDelete()" class="btn-change">変更</button>
                 <button onclick="closeModal('colorModal')" class="btn-cancel">キャンセル</button>
             </div>
         </div>
