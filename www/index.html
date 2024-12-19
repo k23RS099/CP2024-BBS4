@@ -81,7 +81,7 @@ function validateContent(content) {
 }
 
 // 認証フォームのバリデーション
-function validateAuthInput(email, password, isRegister = false) {
+function validateAuthInput(email, password, nickname, isRegister = false) {
     if (!email || !email.trim()) {
         showMessage('メールアドレスを入力してください', 'error');
         return false;
@@ -90,8 +90,20 @@ function validateAuthInput(email, password, isRegister = false) {
         showMessage('パスワードを入力してください', 'error');
         return false;
     }
+    if (!password || !password.trim()) {
+        showMessage('パスワードを入力してください', 'error');
+        return false;
+    }
     if (isRegister && password.length < 6) {
         showMessage('パスワードは6文字以上にしてください', 'error');
+        return false;
+    }
+    if (!nickname || !nickname.trim()) {
+        showMessage('ニックネームを入力してください', 'error');
+        return false;
+    }
+    if (isRegister && nickname.length < 2) {
+        showMessage('ニックネームは2文字以上にしてください', 'error');
         return false;
     }
     return true;
@@ -109,9 +121,9 @@ function createPost(author, content) {
     const button = $('#postButton');
     button.prop('disabled', true);
 
-    // author はログインしているユーザのメールアドレスに変更、userId を追加
+    // author はログインしているユーザのニックネームに変更、userId を追加
     const postData = {
-        author: currentUser.email,
+        author: currentUser.nickname,
         content: content,
         timestamp: firebase.database.ServerValue.TIMESTAMP,
         userId: currentUser.uid
@@ -315,6 +327,25 @@ function handleDelete() {
         });
 }
 
+// 色変更処理のハンドラ
+function handleChange() {
+    if (!currentEditId) return;
+
+    const postElement = $(`#post-${currentEditId}`);
+    postElement.addClass('changing');
+
+    postsRef.child(currentEditId).remove()
+        .then(() => {
+            showMessage('投稿を削除しました');
+            closeModal('deleteModal');
+            currentEditId = null;
+        })
+        .catch((error) => {
+            showMessage('削除に失敗しました：' + error.message, 'error');
+            postElement.removeClass('deleting');
+        });
+}
+
 // モーダルの外側をクリックした時の処理
 $(document).on('click', '.modal-overlay', function() {
     const modalId = $(this).parent().attr('id');
@@ -494,13 +525,15 @@ $(function() {
     $('#loginButton').on('click', function() {
         const email = $('#loginEmail').val();
         const password = $('#loginPassword').val();
-        login(email, password);
+        const nickname = $('#loginNickname').val();
+        login(email, password,nickname);
     });
 
     $('#registerButton').on('click', function() {
         const email = $('#loginEmail').val();
         const password = $('#loginPassword').val();
-        register(email, password);
+        const nickname = $('#loginNickname').val();
+        register(email, password,nickname);
     });
 
     $('#logoutButton').on('click', logout);
@@ -541,6 +574,13 @@ window.addEventListener('unload', function() {
                        class="form-control" placeholder="6文字以上">
                 <small class="help-text">※新規登録時は6文字以上</small>
             </div>
+            </div>
+            <div class="form-group">
+                <label for="loginnickname">ニックネーム</label>
+                <input type="nickname" id="loginnickname" 
+                       class="form-control" placeholder="2文字以上">
+                <small class="help-text">※登録は2文字以上</small>
+            </div>
             <div class="button-group">
                 <button id="loginButton" class="btn-primary">ログイン</button>
                 <button id="registerButton" class="btn-secondary">新規登録</button>
@@ -549,7 +589,7 @@ window.addEventListener('unload', function() {
 
         <!-- ログイン情報（ログイン時表示） -->
         <div class="user-info logged-in">
-            <span>ログイン中：<span id="userEmail"></span></span>
+            <span>ログイン中：<span id="usernickname"></span></span>
             <button id="logoutButton" class="btn-secondary">ログアウト</button>
         </div>
 
