@@ -81,7 +81,7 @@ function validateContent(content) {
 }
 
 // 認証フォームのバリデーション
-function validateAuthInput(email, password, nickname, isRegister = false) {
+function validateAuthInput(email, password, isRegister = false) {
     if (!email || !email.trim()) {
         showMessage('メールアドレスを入力してください', 'error');
         return false;
@@ -90,20 +90,8 @@ function validateAuthInput(email, password, nickname, isRegister = false) {
         showMessage('パスワードを入力してください', 'error');
         return false;
     }
-    if (!password || !password.trim()) {
-        showMessage('パスワードを入力してください', 'error');
-        return false;
-    }
     if (isRegister && password.length < 6) {
         showMessage('パスワードは6文字以上にしてください', 'error');
-        return false;
-    }
-    if (!nickname || !nickname.trim()) {
-        showMessage('ニックネームを入力してください', 'error');
-        return false;
-    }
-    if (isRegister && nickname.length < 2) {
-        showMessage('ニックネームは2文字以上にしてください', 'error');
         return false;
     }
     return true;
