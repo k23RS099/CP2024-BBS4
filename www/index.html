@@ -513,15 +513,13 @@ $(function() {
     $('#loginButton').on('click', function() {
         const email = $('#loginEmail').val();
         const password = $('#loginPassword').val();
-        const nickname = $('#loginNickname').val();
-        login(email, password,nickname);
+        login(email, password);
     });
 
     $('#registerButton').on('click', function() {
         const email = $('#loginEmail').val();
         const password = $('#loginPassword').val();
-        const nickname = $('#loginNickname').val();
-        register(email, password,nickname);
+        register(email, password);
     });
 
     $('#logoutButton').on('click', logout);
@@ -562,13 +560,6 @@ window.addEventListener('unload', function() {
                        class="form-control" placeholder="6文字以上">
                 <small class="help-text">※新規登録時は6文字以上</small>
             </div>
-            </div>
-            <div class="form-group">
-                <label for="loginnickname">ニックネーム</label>
-                <input type="nickname" id="loginnickname" 
-                       class="form-control" placeholder="2文字以上">
-                <small class="help-text">※登録は2文字以上</small>
-            </div>
             <div class="button-group">
                 <button id="loginButton" class="btn-primary">ログイン</button>
                 <button id="registerButton" class="btn-secondary">新規登録</button>
@@ -577,12 +568,18 @@ window.addEventListener('unload', function() {
 
         <!-- ログイン情報（ログイン時表示） -->
         <div class="user-info logged-in">
-            <span>ログイン中：<span id="usernickname"></span></span>
+            <span>ログイン中：<span id="userEmail"></span></span>
             <button id="logoutButton" class="btn-secondary">ログアウト</button>
         </div>
 
         <!-- 投稿フォーム（ログイン時表示） -->
         <div class="post-form logged-in">
+            <div class="form-group">
+                <label for="loginnickname">ニックネーム</label>
+                <input type="nickname" id="loginnickname" 
+                       class="form-control" placeholder="2文字以上">
+                <small class="help-text">※登録は2文字以上</small>
+            </div>
             <div class="form-group">
                 <label for="contentInput">投稿内容</label>
                 <textarea id="contentInput" class="form-control" 
